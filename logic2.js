@@ -9,13 +9,6 @@ d3.json(queryUrl, function(data) {
 
 function createFeatures(earthquakeData) {
 
-  // Define a function we want to run once for each feature in the features array
-  // Give each feature a popup describing the place and time of the earthquake
-//   function(feature, layer) {
-//     layer.bindPopup("<h3>" + feature.properties.place +
-//       "</h3><hr><p>" + new Date(feature.properties.time) + "</p>");
-//   }
-
   // Create a GeoJSON layer containing the features array on the earthquakeData object
   // Run the onEachFeature function once for each piece of data in the array
   var earthquakes = L.geoJSON(earthquakeData, {
@@ -108,15 +101,24 @@ legend.onAdd = function (myMap) {
 legend.addTo(myMap);
 }
 
-function getColor(d) {
-return d > 5 ? '#F30' :
-d > 4  ? '#F60' :
-d > 3  ? '#F90' :
-d > 2  ? '#FC0' :
-d > 1   ? '#FF0' :
-          '#9F3';
-}
+// Create color function
+function getColor(Magnitude) {
+    if (Magnitude > 5) {
+        return '#F30'
+    } else if (Magnitude > 4) {
+        return '#F60'
+    } else if (Magnitude > 3) {
+        return '#F90'
+    } else if (Magnitude > 2) {
+        return '#FC0'
+    } else if (Magnitude > 1) {
+        return '#FF0'
+    } else {
+        return '#9F3'
+    }
+};
 
-function getRadius(value){
-return value*30000
+
+function getRadius(Magnitude){
+return Magnitude*30000
 }
